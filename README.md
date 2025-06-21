@@ -28,12 +28,12 @@ Identify any suspicious process executions, file archival activity, and associat
 
 ## 🛡️ Incident Report: Suspicious Data Archiving on Corporate Device
 ## 1. Summary
-Title: Suspected Data Exfiltration Attempt by PIP'd Employee
-Target: John Doe Smith (Employee under Performance Improvement Plan)
-Device Investigated: vmlab-fe
-Investigator: Fe Esguerra
-Date: June 21, 2025
-Tool Used: Microsoft Defender for Endpoint (MDE)
+Title: Suspected Data Exfiltration Attempt by PIP'd Employee <br />
+Target: John Doe Smith (Employee under Performance Improvement Plan)<br />
+Device Investigated: vmlab-fe<br />
+Investigator: Fe Esguerra<br />
+Date: June 21, 2025<br />
+Tool Used: Microsoft Defender for Endpoint (MDE)<br />
 
 ## 2. Preparation
 ### Goal:
