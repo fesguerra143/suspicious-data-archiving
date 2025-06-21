@@ -50,8 +50,6 @@ Due to John's administrative privileges and emotional response to being placed o
 ![DataCollection1](https://github.com/user-attachments/assets/9e98c6f6-d8be-4362-9a4b-e8733b634626)
 
 
-
-
 ## 4. Data Analysis
 
 ### Focus Areas:
@@ -67,38 +65,40 @@ DeviceFileEvents
 ```
 ![DataCollection2](https://github.com/user-attachments/assets/838c31ec-c5f6-49b3-ba03-d675e1163c26)
   
-### Step 1:
-Analyzed DeviceNetworkEvents for failed outbound connection attempts.
+- Identified a recurring pattern of archives being created and saved in a "backup" folder.
+
+- Timestamp of a notable archive creation: 2025-06-21T04:53:44.4622833Z
+
+- Analyzed process activity ±2 minutes around that timestamp:
 
 ```kql
-DeviceNetworkEvents
-| where ActionType == "ConnectionFailed"
-| summarize ConnectionCount = count() by DeviceName, ActionType, LocalIP, RemoteIP
-| order by ConnectionCount
-
-```
-
-![DataCollection4](https://github.com/user-attachments/assets/d067d36d-1ea9-4c6f-8933-97b668d4e367)
-
-
-Result: IP 10.0.0.5 exhibited an unusually high number of failed connections.
-
-### Step 2:
-Filtered for all failed connection timestamps for IP 10.0.0.5:
-
-```kql
-let IPInQuestion = "10.0.0.5";
-DeviceNetworkEvents
-| where ActionType == "ConnectionFailed"
-| where LocalIP == IPInQuestion
+let VMName = "vmlab-fe";
+let specificTime = datetime(2025-06-21T04:53:44.4622833Z);
+DeviceProcessEvents
+| where Timestamp between ((specificTime - 2m) .. (specificTime + 2m))
+| where DeviceName == VMName
 | order by Timestamp desc
 ```
-![DataCollection5](https://github.com/user-attachments/assets/55159acf-f97d-47e9-b5f4-d60283a8ec1c)
 
 
+![DataCollection3](https://github.com/user-attachments/assets/d1fdc9d4-b9ed-4bd3-97f7-55de23d7bcab)
 
-Finding:
-Connections were attempted to multiple ports in sequential order—indicating an automated port scan.
+### Findings:
+
+- A PowerShell script silently installed 7-Zip.
+- The script then used 7z.exe to archive employee data.
+- Example of the command observed:
+
+
+```python
+powershell.exe -ExecutionPolicy Bypass -Command "...Install 7zip..."
+7z.exe a -tzip archive.zip EmployeeData\
+
+```
+
+![DataCollection5](https://github.com/user-attachments/assets/ff02c0fe-f7d6-43ec-80aa-10c50c3c9380)
+
+
 
 ## 5. Investigation
 
