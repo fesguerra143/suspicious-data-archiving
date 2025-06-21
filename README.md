@@ -143,7 +143,12 @@ No evidence of network-based exfiltration was detected during this timeframe.
 
 ## 8. Lessons Learned / Improvement: 
 
-Review PowerShell execution policies and endpoint monitoring rules
+🛠️ What Could Be Improved:
+Proactive Controls:
+- Review PowerShell execution policies and endpoint monitoring rules
+- Implement application control to block unauthorized installers like 7-Zip.
+- Restrict PowerShell use via Group Policy.
+
 
 ## 9. Final Status
 
@@ -151,31 +156,6 @@ Threat Contained: ✅
 
 Device Isolated: ✅
 
-✅ What We Did Well:
-Time-based pivoting effectively correlated file, process, and network activity.
-
-Rapid isolation of the host prevented possible data loss.
-
-Used threat-informed hypothesis to guide focused hunting.
-
-🛠️ What Could Be Improved:
-Proactive Controls:
-
-Implement application control to block unauthorized installers like 7-Zip.
-
-Restrict PowerShell use via Group Policy or WDAC.
-
-Enable PowerShell logging for better audit trails.
-
-Enhanced Detection:
-
-Develop detection rules for archive tool usage and scripting patterns.
-
-Monitor .zip file creation in unusual folders or by non-standard processes.
-
-Automation:
-
-Build KQL automation to alert when archiving tools and data directories interact.
 
 
 
