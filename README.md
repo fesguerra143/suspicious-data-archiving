@@ -116,6 +116,7 @@ DeviceNetworkEvents
 ```
 
 ![DataCollection5-1](https://github.com/user-attachments/assets/87993368-76c8-4c55-9742-05ca40ecbb5a)
+![DataCollection6](https://github.com/user-attachments/assets/4f280373-75d7-433a-902e-7dba51ee00b6)
 
 Key Finding:
 No evidence of network-based exfiltration was detected during this timeframe.
