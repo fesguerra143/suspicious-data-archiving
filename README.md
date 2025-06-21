@@ -49,16 +49,23 @@ Due to John's administrative privileges and emotional response to being placed o
 
 ![DataCollection1](https://github.com/user-attachments/assets/9e98c6f6-d8be-4362-9a4b-e8733b634626)
 
-![DataCollection2](https://github.com/user-attachments/assets/838c31ec-c5f6-49b3-ba03-d675e1163c26)
+
 
 
 ## 4. Data Analysis
 
 ### Focus Areas:
 
-- Failed network connections (potential scanning) 
-- Suspicious process executions
-- File downloads or script execution activity
+- Queried .zip file creation events:
+```kql
+DeviceFileEvents
+| where DeviceName == "vmlab-fe"
+| where FileName endswith ".zip"
+| order by Timestamp desc
+
+
+```
+![DataCollection2](https://github.com/user-attachments/assets/838c31ec-c5f6-49b3-ba03-d675e1163c26)
   
 ### Step 1:
 Analyzed DeviceNetworkEvents for failed outbound connection attempts.
