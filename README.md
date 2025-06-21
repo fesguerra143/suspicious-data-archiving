@@ -98,7 +98,7 @@ powershell.exe -ExecutionPolicy Bypass -Command "...Install 7zip..."
 
 ![DataCollection5](https://github.com/user-attachments/assets/ff02c0fe-f7d6-43ec-80aa-10c50c3c9380)
 
-
+![DataCollection6](https://github.com/user-attachments/assets/4f280373-75d7-433a-902e-7dba51ee00b6)
 
 ## 5. Investigation
 
@@ -116,7 +116,7 @@ DeviceNetworkEvents
 ```
 
 ![DataCollection5-1](https://github.com/user-attachments/assets/87993368-76c8-4c55-9742-05ca40ecbb5a)
-![DataCollection6](https://github.com/user-attachments/assets/4f280373-75d7-433a-902e-7dba51ee00b6)
+
 
 Key Finding:
 No evidence of network-based exfiltration was detected during this timeframe.
