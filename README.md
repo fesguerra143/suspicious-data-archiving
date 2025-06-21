@@ -26,7 +26,7 @@ Identify any suspicious process executions, file archival activity, and associat
 ---
 
 
-## 🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network
+## 🛡️ Incident Report: Suspicious Data Archiving on Corporate Device
 ## 1. Summary
 Title: Suspected Data Exfiltration Attempt by PIP'd Employee
 Target: John Doe Smith (Employee under Performance Improvement Plan)
