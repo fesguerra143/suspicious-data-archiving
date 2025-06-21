@@ -1,6 +1,6 @@
 
 
-# Suspicious Data Archiving on Corporate Device
+# 🛡️ Incident Report: Suspicious Data Archiving on Corporate Device
 # Objective:
 Identify any suspicious process executions, file archival activity, and associated network traffic surrounding critical timestamps.
 
@@ -26,7 +26,6 @@ Identify any suspicious process executions, file archival activity, and associat
 ---
 
 
-## 🛡️ Incident Report: Suspicious Data Archiving on Corporate Device
 ## 1. Summary
 Title: Suspected Data Exfiltration Attempt by PIP'd Employee <br />
 Target: John Doe Smith (Employee under Performance Improvement Plan)<br />
