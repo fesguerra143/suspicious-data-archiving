@@ -1,8 +1,8 @@
 
 
-# Sudden Network Slowdowns Project 
+# Suspicious Data Archiving on Corporate Device
 # Objective:
-To investigate abnormal traffic patterns originating from within the network, identify any signs of lateral movement or misuse of built-in tools (e.g., PowerShell), and validate whether an internal host is responsible for the performance degradation.
+Identify any suspicious process executions, file archival activity, and associated network traffic surrounding critical timestamps.
 
 ---
 # Tools & Technology:
@@ -28,35 +28,28 @@ To investigate abnormal traffic patterns originating from within the network, id
 
 ## 🛡️ Incident Report: Internal Port Scanning Activity on 10.0.0.0/16 Network
 ## 1. Summary
-Incident Title: Unauthorized Internal Port Scanning via PowerShell <br />
-Date of Discovery: June 10, 2025 <br />
-Reporting Team: Security Operations / Threat Hunting <br />
-Impacted Network Segment: 10.0.0.0/16 <br />
-Affected Host: windows-target-1 (10.0.0.5) <br />
-TTPs Observed: T1046, T1059.001, T1078, T1105, T1204.002 <br />
-Incident Status: Contained; Rebuilt/ Re-imaging  <br />
+Title: Suspected Data Exfiltration Attempt by PIP'd Employee
+Target: John Doe Smith (Employee under Performance Improvement Plan)
+Device Investigated: vmlab-fe
+Investigator: Fe Esguerra
+Date: June 21, 2025
+Tool Used: Microsoft Defender for Endpoint (MDE)
 
 ## 2. Preparation
-### Observation:
-The server team reported network performance degradation affecting older devices on the 10.0.0.0/16 internal network.
-
-### Initial Assumption:
-After ruling out external threats (e.g., DDoS), internal causes such as large file transfers or port scanning were considered. The environment allows unrestricted internal traffic and the use of scripting tools like PowerShell.
+### Goal:
+Assess potential insider threat activities by John Doe Smith, who recently exhibited behavioral concerns and may attempt to exfiltrate sensitive company data prior to resigning or termination.
 
 ### Hypothesis:
-A compromised internal host may be engaging in lateral movement or reconnaissance via port scanning.
+Due to John's administrative privileges and emotional response to being placed on a PIP, we hypothesize he may attempt to compress and transfer sensitive files outside the organization using custom or common archive tools (e.g., 7-Zip).
 
 ## 3. Data Collection
 ### Data Sources Queried:
-#### DeviceNetworkEvents
-  ![DataCollection1](https://github.com/user-attachments/assets/74d73fd3-8472-4d27-a1cc-59aafc29736d)
-
-#### DeviceProcessEvents
-  ![DataCollection2](https://github.com/user-attachments/assets/b8cacdcc-dac6-4469-856d-d19205730b9e)
 
 #### DeviceFileEvents 
-![DataCollection3](https://github.com/user-attachments/assets/f53e8661-60e6-45a2-97f1-409192e3a672)
 
+![DataCollection1](https://github.com/user-attachments/assets/9e98c6f6-d8be-4362-9a4b-e8733b634626)
+
+![DataCollection2](https://github.com/user-attachments/assets/838c31ec-c5f6-49b3-ba03-d675e1163c26)
 
 
 ## 4. Data Analysis
